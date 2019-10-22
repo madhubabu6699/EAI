@@ -1,0 +1,56 @@
+
+<router-outlet></router-outlet>
+
+
+<!--container starts here..!-->
+
+<div class="pt-5">
+  <div class=" col-12 mx-auto rounded " style="background: #f3f9fb;">
+
+    <!--search - feild -->
+    <input class="form-control p-2 my-2 my-sm-0" [(ngModel)]="searchFilter.title" placeholder="Search by name">
+
+    <!--Table-->
+    <div class="table-responsive">
+      <table class=" table content-table">
+        <thead class="bg-info text-center text-uppercase text-white">
+          <td>title</td>
+          <td>url</td>
+          <td>created_at</td>
+          <td>author</td>
+        </thead>
+        <tbody>
+          <tr *ngFor="let items of data | filterBy:searchFilter" (click)="Modal(items)" data-toggle="modal"
+            data-target="#myModal" (click)="changeColor(items)" [ngClass]="{'rowColor' : items.title == select}">
+            <td>{{items.title}}</td>
+            <td>{{items.url}}</td>
+            <td>{{items.created_at | date : 'dd/MM/yyyy,h:mm a,EEEE'}}</td>
+            <td>{{items.author}}</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <!--Model-->
+      <div class="modal" id="myModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Details</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!--Model Body-->
+            <div class="modal-body">
+              <p>{{th|json}}</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
